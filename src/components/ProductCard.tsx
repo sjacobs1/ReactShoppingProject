@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Product } from '../model/product'
+import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
 
 type ProductCardProps = {
   product: Product
@@ -24,7 +25,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <span className="ml-1">{`(${product.rating.count})`}</span>
             </p>
             <p className="truncate text-gray-500">{product.title}</p>
-            <p className="font-bold text-black">{`$${product.price}`}</p>
+            <p className="font-bold text-black">{`$${formatToTwoDecimals(
+              product.price
+            )}`}</p>
           </div>
         </div>
       }
