@@ -1,3 +1,3 @@
 export function formatToTwoDecimals(value: number): string {
-  return value.toFixed(2)
+  return (Math.round(value * 100) / 100).toFixed(2)
 }
