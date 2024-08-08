@@ -1,14 +1,21 @@
 import { Link } from 'react-router-dom'
 import { Product } from '../model/product'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
+import { useProductState } from '../store/productState'
 
 type ProductCardProps = {
   product: Product
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const setSelectedItemId = useProductState((state) => state.setSelectedItemId)
+
+  const handleSelectedItem = () => {
+    setSelectedItemId(product.id)
+  }
+
   return (
-    <Link to="productOverview">
+    <Link to="productOverview" onClick={handleSelectedItem}>
       {
         <div className="card card-compact bg-white w-44 shadow-xl cursor-pointer">
           <figure>

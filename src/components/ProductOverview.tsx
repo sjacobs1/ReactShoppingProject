@@ -1,12 +1,15 @@
-import { Product } from '../model/product'
 import { CiShoppingTag } from 'react-icons/ci'
 import { FiShoppingBag } from 'react-icons/fi'
+import { useProductState } from '../store/productState'
 
-type ProductOverviewProps = {
-  product: Product
-}
+const ProductOverview = () => {
+  const getSelectedItem = useProductState((state) => state.getSelectedItem)
+  const product = getSelectedItem()
 
-const ProductOverview = ({ product }: ProductOverviewProps) => {
+  if (!product) {
+    return <div>Product could not be found</div>
+  }
+
   return (
     <div className="card card-compact bg-white shadow-xl cursor-pointer">
       <figure>
