@@ -1,10 +1,17 @@
 import { CiShoppingTag } from 'react-icons/ci'
 import { FiShoppingBag } from 'react-icons/fi'
 import { useProductState } from '../store/productState'
+import { useCartStore } from '../store/cartState'
 
 const ProductOverview = () => {
   const getSelectedItem = useProductState((state) => state.getSelectedItem)
   const product = getSelectedItem()
+
+  const addItemToCart = useCartStore((state) => state.addItemToCart)
+
+  const handleAddItemToCart = () => {
+    if (product) addItemToCart(product)
+  }
 
   if (!product) {
     return <div>Product could not be found</div>
@@ -35,7 +42,9 @@ const ProductOverview = () => {
       </div>
 
       <div className="flex justify-end p-2">
-        <button className="btn">{<FiShoppingBag />}Add to cart</button>
+        <button className="btn" onClick={handleAddItemToCart}>
+          {<FiShoppingBag />}Add to cart
+        </button>
       </div>
     </div>
   )

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { Product } from '../model/product'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
 import { useProductState } from '../store/productState'
+import { FiShoppingBag } from 'react-icons/fi'
+import { useCartStore } from '../store/cartState'
 
 type ProductCardProps = {
   product: Product
@@ -9,9 +11,14 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const setSelectedItemId = useProductState((state) => state.setSelectedItemId)
+  const addItemToCart = useCartStore((state) => state.addItemToCart)
 
   const handleSelectedItem = () => {
     setSelectedItemId(product.id)
+  }
+
+  const handleAddItemToCart = () => {
+    addItemToCart(product)
   }
 
   return (
@@ -32,9 +39,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <span className="ml-1">{`(${product.rating.count})`}</span>
             </p>
             <p className="truncate text-gray-500">{product.title}</p>
-            <p className="font-bold text-black">{`$${formatToTwoDecimals(
-              product.price
-            )}`}</p>
+
+            <div className="flex justify-between">
+              <p className="font-bold text-black">{`$${formatToTwoDecimals(
+                product.price
+              )}`}</p>
+              <button className="btn btn-sm" onClick={handleAddItemToCart}>
+                {<FiShoppingBag />}
+              </button>
+            </div>
           </div>
         </div>
       }

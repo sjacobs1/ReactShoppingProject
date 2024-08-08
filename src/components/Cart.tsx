@@ -1,21 +1,36 @@
+import { Link } from 'react-router-dom'
+import { useCartStore } from '../store/cartState'
+import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
+
 export const Cart = () => {
+  const cartItems = useCartStore((state) => state.getCartItems())
+
+  if (cartItems.length === 0) {
+    return (
+      <div>
+        <p>Your cart empty</p>
+        <Link to="/">View Products</Link>
+      </div>
+    )
+  }
+
   return (
-    <div className="card shadow-xl flex flex-col gap-2 bg-gray-100">
-      <ul className="flex flex-col gap-2">
-        <li className="bg-base-200 grid grid-cols-3 gap-4 p-4 font-bold">
-          <div className="flex items-center">
-            <h2>Item</h2>
+    <div>
+      {cartItems.map((item) => (
+        <div
+          key={item.id}
+          className="card card-compact bg-white w-full shadow-xl mb-4"
+        >
+          <div className="flex">
+            <img className="h-24 w-24" src={item.image} alt={item.title} />
+            <div className="ml-4">
+              <h2 className="card-title">{item.title}</h2>
+              <p>{`$${formatToTwoDecimals(item.price)}`}</p>
+              <p>Quantity: {item.quantity}</p>
+            </div>
           </div>
-          <div className="flex items-center justify-center">
-            <h2>Quantity</h2>
-          </div>
-          <div className="flex items-center justify-end">
-            <h2>Item Total</h2>
-          </div>
-        </li>
-      </ul>
-      <div className="divider"></div>
-      <div className="flex justify-end p-4 text-black">Cart Total:</div>
+        </div>
+      ))}
     </div>
   )
 }
