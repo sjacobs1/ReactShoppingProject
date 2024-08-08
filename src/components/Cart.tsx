@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useCartStore } from '../store/cartState'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
+import { useCartStore } from '../store/cartState'
 
 export const Cart = () => {
   const cartItems = useCartStore((state) => state.getCartItems())
@@ -8,7 +8,7 @@ export const Cart = () => {
   if (cartItems.length === 0) {
     return (
       <div>
-        <p>Your cart empty</p>
+        <p>Your cart is empty</p>
         <Link to="/">View Products</Link>
       </div>
     )

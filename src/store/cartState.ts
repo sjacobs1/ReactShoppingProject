@@ -1,5 +1,4 @@
-// store/cartStore.ts
-import create from 'zustand'
+import { create } from 'zustand'
 import { Product } from '../model/product'
 
 interface CartItem extends Product {
