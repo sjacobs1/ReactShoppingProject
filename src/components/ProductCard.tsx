@@ -8,10 +8,10 @@ type ProductCardProps = {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const setSelectedItem = useProductState((state) => state.setSelectedItem)
+  const setSelectedItemId = useProductState((state) => state.setSelectedItemId)
 
   const handleSelectedItem = () => {
-    setSelectedItem(product)
+    setSelectedItemId(product.id)
   }
 
   return (

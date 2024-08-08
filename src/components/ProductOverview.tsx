@@ -3,7 +3,8 @@ import { FiShoppingBag } from 'react-icons/fi'
 import { useProductState } from '../store/productState'
 
 const ProductOverview = () => {
-  const product = useProductState((state) => state.selectedItem)
+  const getSelectedItem = useProductState((state) => state.getSelectedItem)
+  const product = getSelectedItem()
 
   if (!product) {
     return <div>Product could not be found</div>
