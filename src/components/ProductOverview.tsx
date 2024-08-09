@@ -10,7 +10,7 @@ const ProductOverview = () => {
   const addItemToCart = useCartStore((state) => state.addItemToCart)
 
   const handleAddItemToCart = () => {
-    if (product) addItemToCart(product)
+    if (product) addItemToCart(product.id)
   }
 
   if (!product) {

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
 import { useCartStore } from '../store/cartState'
+import { useProductState } from '../store/productState'
 
 export const Cart = () => {
   const cartItems = useCartStore((state) => state.getCartItems())
+  const items = useProductState((state) => state.items)
 
   if (cartItems.length === 0) {
     return (
@@ -16,21 +18,25 @@ export const Cart = () => {
 
   return (
     <div>
-      {cartItems.map((item) => (
-        <div
-          key={item.id}
-          className="card card-compact bg-white w-full shadow-xl mb-4"
-        >
-          <div className="flex">
-            <img className="h-24 w-24" src={item.image} alt={item.title} />
-            <div className="ml-4">
-              <h2 className="card-title">{item.title}</h2>
-              <p>{`$${formatToTwoDecimals(item.price)}`}</p>
-              <p>Quantity: {item.quantity}</p>
+      {cartItems.map(({ productId, quantity }) => {
+        const item = items.find((item) => item.id === productId)
+
+        return (
+          <div
+            key={item?.id}
+            className="card card-compact bg-white w-full shadow-xl mb-4"
+          >
+            <div className="flex">
+              <img className="h-24 w-24" src={item?.image} alt={item?.title} />
+              <div className="ml-4">
+                <h2 className="card-title">{item?.title}</h2>
+                <p>{`$${formatToTwoDecimals(item?.price ?? 0)}`}</p>
+                <p>Quantity: {quantity}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
