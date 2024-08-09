@@ -1,34 +1,34 @@
 import { create } from 'zustand'
-import { Product } from '../model/product'
 
-interface CartItem extends Product {
+interface CartItem {
+  productId: number
   quantity: number
 }
 
 interface CartState {
   cartItems: CartItem[]
-  addItemToCart: (product: Product) => void
+  addItemToCart: (productId: number) => void
   getCartItems: () => CartItem[]
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
   cartItems: [],
 
-  addItemToCart: (product) => {
+  addItemToCart: (productId) => {
     const { cartItems } = get()
-    const existingItem = cartItems.find((item) => item.id === product.id)
+    const existingItem = cartItems.find((item) => item.productId === productId)
 
     if (existingItem) {
       set({
         cartItems: cartItems.map((item) =>
-          item.id === product.id
+          item.productId === productId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         ),
       })
     } else {
       set({
-        cartItems: [...cartItems, { ...product, quantity: 1 }],
+        cartItems: [...cartItems, { productId, quantity: 1 }],
       })
     }
   },
