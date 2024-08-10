@@ -18,7 +18,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   }
 
   const handleAddItemToCart = () => {
-    addItemToCart(product)
+    addItemToCart(product.id)
   }
 
   return (
