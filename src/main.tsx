@@ -7,6 +7,7 @@ import Products from './components/Products.tsx'
 import App from './App.tsx'
 import ProductOverview from './components/ProductOverview.tsx'
 import Cart from './components/Cart.tsx'
+import QuestionForm from './components/AskAQuestionForm.tsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'more',
+        element: <QuestionForm />,
       },
     ],
   },
