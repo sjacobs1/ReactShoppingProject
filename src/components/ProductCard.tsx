@@ -7,9 +7,10 @@ import { useCartStore } from '../store/cartState'
 
 type ProductCardProps = {
   product: Product
+  className?: string
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, className }: ProductCardProps) => {
   const setSelectedItemId = useProductState((state) => state.setSelectedItemId)
   const addItemToCart = useCartStore((state) => state.addItemToCart)
 
@@ -24,7 +25,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link to="productOverview" onClick={handleSelectedItem}>
       {
-        <div className="card card-compact bg-white w-44 shadow-xl cursor-pointer">
+        <div
+          className={`card card-compact bg-white w-44 shadow-xl cursor-pointer ${className}`}
+        >
           <figure>
             <img
               className="h-48 w-36"
