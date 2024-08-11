@@ -28,9 +28,11 @@ export const Cart = () => {
 
   return (
     <div>
-      {cartItems.map(({ productId, quantity }, index) => {
+      {cartItems.map(({ productId, quantity }) => {
         const item = items.find((item) => item.id === productId)
         const totalItemPrice = (item?.price ?? 0) * quantity
+        const isLastItem =
+          cartItems[cartItems.length - 1].productId === productId
         cartTotal += totalItemPrice
 
         return (
@@ -63,7 +65,7 @@ export const Cart = () => {
                 </div>
               </div>
             </div>
-            {index < cartItems.length - 1 && <div className="divider"></div>}
+            {!isLastItem && <div className="divider"></div>}
           </div>
         )
       })}
