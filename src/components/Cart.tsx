@@ -4,16 +4,15 @@ import { useCartStore } from '../store/cartState'
 import { useProductState } from '../store/productState'
 
 export const Cart = () => {
-  const cartItems = useCartStore((state) => state.getCartItems())
+  const {
+    cartItems,
+    removeItemFromCart,
+    clearCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useCartStore()
+
   const items = useProductState((state) => state.items)
-  const removeItemFromCart = useCartStore((state) => state.removeItemFromCart)
-  const clearCart = useCartStore((state) => state.clearCart)
-  const increaseItemQuantity = useCartStore(
-    (state) => state.increaseItemQuantity
-  )
-  const decreaseItemQuantity = useCartStore(
-    (state) => state.decreaseItemQuantity
-  )
 
   if (cartItems.length === 0) {
     return (
