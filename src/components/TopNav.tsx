@@ -29,6 +29,7 @@ const TopNav = () => {
                 d="M4 6h16M4 12h16M4 18h7"
               />
             </svg>
+            <p>menu</p>
           </div>
           <ul
             tabIndex={0}

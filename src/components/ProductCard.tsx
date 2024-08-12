@@ -43,7 +43,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           <div className="card-body">
             <p>
               <span className="text-gray-500">{`★${product.rating.rate}`}</span>
-              <span className="ml-1">{`(${product.rating.count})`}</span>
+              <span className="ml-1 text-gray-500">{`(${product.rating.count})`}</span>
             </p>
             <p className="truncate text-gray-500">{product.title}</p>
 
