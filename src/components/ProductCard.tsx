@@ -18,7 +18,8 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
     setSelectedItemId(product.id)
   }
 
-  const handleAddItemToCart = () => {
+  const handleAddItemToCart = (event: React.MouseEvent) => {
+    event.preventDefault()
     addItemToCart(product.id)
   }
 
@@ -59,3 +60,4 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 }
 
 export default ProductCard
+
