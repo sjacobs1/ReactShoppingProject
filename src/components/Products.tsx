@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getAllProducts } from '../service/getAllProducts'
 import ProductCard from './ProductCard'
 import { useProductState } from '../store/productState'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Product } from '../model/product'
 import { findBestProduct } from '../utils/findBestProduct'
 import { Category } from '../model/category'
@@ -11,6 +11,7 @@ import { getAllCategories } from '../service/getAllCategories'
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [bestProduct, setBestProduct] = useState<Product | null>(null)
+  
   const { isPending, error, data } = useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
@@ -35,9 +36,11 @@ const Products = () => {
 
   const setItems = useProductState((state) => state.setItems)
 
-  if (data) {
-    setItems(data)
-  }
+  useEffect(() => {
+    if (data) {
+      setItems(data);
+    }
+  }, [data, setItems]);
 
   const filteredProducts = selectedCategory
     ? data?.filter((item) => item.category === selectedCategory)
@@ -47,14 +50,13 @@ const Products = () => {
 
   if (error) return <div>Error: {error.message}</div>
 
-  setItems(data)
-
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-1">
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-1">
+          <label className="text-gray-700">Filter:
           <select
-            className="select bg-white text-black my-2"
+            className="select bg-white text-black m-2"
             onChange={handleCategoryChange}
             defaultValue=""
           >
@@ -72,6 +74,7 @@ const Products = () => {
               </option>
             ))}
           </select>
+          </label>
         </div>
 
         <div className="flex justify-center mb-2">
