@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
 import { useCartStore } from '../store/cartState'
 import { useProductState } from '../store/productState'
+import { calculateCartTotal } from '../utils/calculateCartTotalPrice'
 
 export const Cart = () => {
   const {
@@ -23,7 +24,7 @@ export const Cart = () => {
     )
   }
 
-  let cartTotal = 0
+  const cartTotal = calculateCartTotal(cartItems, items)
 
   return (
     <div>
@@ -32,7 +33,6 @@ export const Cart = () => {
         const totalItemPrice = (item?.price ?? 0) * quantity
         const isLastItem =
           cartItems[cartItems.length - 1].productId === productId
-        cartTotal += totalItemPrice
 
         return (
           <div key={item?.id}>
