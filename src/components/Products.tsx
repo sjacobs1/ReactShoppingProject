@@ -5,6 +5,8 @@ import { useProductState } from '../store/productState'
 import { useState } from 'react'
 import { Product } from '../model/product'
 import { findBestProduct } from '../utils/findBestProduct'
+import { Category } from '../model/category'
+import { getAllCategories } from '../service/getAllCategories'
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -12,6 +14,11 @@ const Products = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
+  })
+
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: getAllCategories,
   })
 
   const handleCategoryChange = (
@@ -53,10 +60,11 @@ const Products = () => {
           Categories
         </option>
         <option value="all">All</option>
-        <option value="electronics">Electronics</option>
-        <option value="jewelery">Jewelry</option>
-        <option value="men's clothing">Men's Clothing</option>
-        <option value="women's clothing">Women's Clothing</option>
+        {categories?.map((category) => (
+          <option key={category.name} value={category.name}>
+            {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+          </option>
+        ))}
       </select>
 
       {selectedCategory && selectedCategory !== 'all' && (
