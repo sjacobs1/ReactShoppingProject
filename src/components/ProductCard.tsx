@@ -27,7 +27,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
     <Link to="productOverview" onClick={handleSelectedItem}>
       {
         <div
-          className={`card card-compact bg-white w-44 shadow-xl cursor-pointer ${className}`}
+          className={`card card-compact bg-white w-44 cursor-pointer ${className}`}
         >
           <figure>
             <img
