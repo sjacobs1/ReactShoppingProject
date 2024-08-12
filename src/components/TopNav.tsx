@@ -34,7 +34,7 @@ const TopNav = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <Link to="more">Ask us a question</Link>
+            <Link to="more" className="text-white">Ask us a question</Link>
           </ul>
         </div>
       </div>
@@ -79,7 +79,7 @@ const TopNav = () => {
                 Subtotal: ${formatToTwoDecimals(cartTotal)}
               </span>
               <div className="card-actions">
-                <Link to="cart" className="btn btn-black btn-block">
+                <Link to="cart" className="btn btn-black btn-block text-white">
                   View cart
                 </Link>
               </div>

@@ -34,7 +34,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
         >
           <figure>
             <img
-              className="h-48 w-36"
+              className="h-48 w-36 mt-2"
               src={product.image}
               alt={product.title}
             />
