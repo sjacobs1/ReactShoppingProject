@@ -49,7 +49,7 @@ const Products = () => {
         onChange={handleCategoryChange}
         defaultValue=""
       >
-        <option disabled selected>
+        <option value="" disabled>
           Categories
         </option>
         <option value="all">All</option>
