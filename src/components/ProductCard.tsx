@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Product } from '../model/product'
 import { formatToTwoDecimals } from '../utils/formatPriceToTwoDecimals'
 import { useProductState } from '../store/productState'
-import { FiShoppingBag } from 'react-icons/fi'
+import { FiCheck, FiShoppingBag } from 'react-icons/fi'
 import { useCartStore } from '../store/cartState'
 
 type ProductCardProps = {
@@ -13,6 +13,9 @@ type ProductCardProps = {
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const setSelectedItemId = useProductState((state) => state.setSelectedItemId)
   const addItemToCart = useCartStore((state) => state.addItemToCart)
+  const cartItems = useCartStore((state) => state.cartItems)
+  const isInCart = (productId: number) =>
+    cartItems.some((item) => item.productId === productId)
 
   const handleSelectedItem = () => {
     setSelectedItemId(product.id)
@@ -27,11 +30,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
     <Link to="productOverview" onClick={handleSelectedItem}>
       {
         <div
-          className={`card card-compact bg-white w-44 shadow-xl cursor-pointer ${className}`}
+          className={`card card-compact bg-white w-44 cursor-pointer ${className}`}
         >
           <figure>
             <img
-              className="h-48 w-36"
+              className="h-48 w-36 mt-2"
               src={product.image}
               alt={product.title}
             />
@@ -48,8 +51,26 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               <p className="font-bold text-black">{`$${formatToTwoDecimals(
                 product.price
               )}`}</p>
-              <button className="btn btn-sm" onClick={handleAddItemToCart}>
-                {<FiShoppingBag />}
+
+              <button
+                className={`btn btn-sm ${
+                  isInCart(product.id)
+                    ? 'bg-slate-700 text-white'
+                    : 'bg-white text-black'
+                } flex items-center`}
+                onClick={handleAddItemToCart}
+              >
+                {isInCart(product.id) ? (
+                  <>
+                    <FiCheck className="mr-2" />
+                    <FiShoppingBag />
+                  </>
+                ) : (
+                  <>
+                    <span className="mr-2">+</span>
+                    <FiShoppingBag />
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -60,4 +81,3 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 }
 
 export default ProductCard
-

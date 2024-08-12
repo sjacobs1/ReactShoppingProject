@@ -13,6 +13,7 @@ interface CartState {
   clearCart: () => void
   increaseItemQuantity: (productId: number) => void
   decreaseItemQuantity: (productId: number) => void
+  isInCart: (productId: number) => boolean
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -79,4 +80,6 @@ export const useCartStore = create<CartState>((set, get) => ({
       })
     }
   },
+  isInCart: (productId) =>
+    get().cartItems.some((item) => item.productId === productId),
 }))
